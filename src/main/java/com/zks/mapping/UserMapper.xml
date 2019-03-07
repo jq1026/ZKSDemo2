@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zks.dao.UserMapper">
+   <select id="getall" resultType="User" >  
+        select * from ltd_user  
+    </select>
+   <select id="getone" resultType="User">
+   		select * from ltd_user where user_code=#{user_code}
+   </select>
+   
+   <select id="select" resultType="User">
+   	select * from ltd_user 
+   	<where>
+   		<if test="user_name!=''">
+   			user_name=#{user_name}
+   		</if>
+   		<if test="tele_phone!=''">
+   			or tele_phone=#{tele_phone}
+   		</if>
+   		<if test="province_name!=''">
+   			or province_name=#{province_name}
+   		</if>
+   		<if test="city_name!=''">
+   			or city_name=#{city_name}
+   		</if>
+   		<if test="county_name!=''">
+   			or county_name=#{county_name}
+   		</if>
+   	</where>
+   </select>
+   
+   
+   
+   <insert id="adduser" parameterType="User">
+   		insert into ltd_user (user_code,user_name,sex,tele_phone,mail,
+   		create_time,province_name,city_name,county_name,job_num)
+   		 values (#{user_code},#{user_name},#{sex},#{tele_phone},#{mail},
+   		 #{create_time},#{province_name},#{city_name},#{county_name},#{job_num})
+   </insert>  
+   
+   <delete id="deleteuser" parameterType="String">
+   	delete from ltd_user
+   	where user_name=#{user_name}
+   </delete>
+   
+   <update id="update" parameterType="User">
+   	update ltd_user set user_name=#{user_name},sex=#{sex},role_name=#{role_name},
+   	tele_phone=#{tele_phone},mail=#{mail},job_num=#{job_num},
+   	create_time=#{create_time},province_name=#{province_name},
+   	city_name=#{city_name},county_name=#{county_name} 
+   	where user_code=#{user_code}
+   </update>
+   
+   
+</mapper>

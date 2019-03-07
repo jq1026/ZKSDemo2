@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zks.dao.UserMapper">
+	<!-- <sql id="getif">
+		<where>
+			<if test="LENGTH(`code`)=2">
+			and LENGTH(`code`)=1
+			</if>
+			
+		</where>
+    </sql> -->
+   <select id="getarea" resultType="Area">  
+       select * from code_area_config 
+       where LENGTH(`code`)=1
+    </select>
+    
+    <select id="getcity" parameterType="String" resultType="Area">
+   		SELECT * from code_area_config WHERE parent_code=(SELECT code FROM code_area_config WHERE name=#{name} and level_type=1)
+   </select>
+   <select id="getcounty" parameterType="String" resultType="Area">
+   		SELECT * from code_area_config WHERE parent_code=(SELECT code FROM code_area_config WHERE name=#{name} and level_type=2)
+   </select>
+</mapper>
